@@ -1,0 +1,9 @@
+env_name ="databricks"
+user_name ="[firstname.lastname]"
+region = "ap-northeast-2"
+databricks_account_id ="[데이터브릭스 어카운트 콘솔에서 확인]"
+databricks_account_username="[데이터브릭스 어카운트 소유자 이메일]"
+databricks_account_password="[데이터브릭스 어카운트 소유자 암호]"
+aws_access_key_id="[aws access key id]"
+aws_secret_acces_key="[secret key]"
+databricks_aws_account_id="414351767826" # do not edit
