@@ -25,19 +25,19 @@ module "vpc" {
       from_port = 443
       to_port = 443
       protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks = "0.0.0.0/0"
     },
     {
       from_port = 3306
       to_port = 3306
       protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks = "0.0.0.0/0"
     },
     {
       from_port = 6666
       to_port = 6666
       protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks = "0.0.0.0/0"
     },
     {
       self = true
