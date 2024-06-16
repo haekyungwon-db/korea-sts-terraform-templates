@@ -64,15 +64,10 @@ module "spoke" {
 
   location                 = var.location
   route_table_id           = module.hub.route_table_id
-  metastore_id             = module.hub.metastore_id
   hub_vnet_name            = module.hub.vnet_name
   hub_resource_group_name  = module.hub.resource_group_name
   hub_vnet_id              = module.hub.vnet_id
-  key_vault_id             = module.hub.key_vault_id
   ipgroup_id               = module.hub.ipgroup_id
-  managed_disk_key_id      = module.hub.managed_disk_key_id
-  managed_services_key_id  = module.hub.managed_services_key_id
-  databricks_app_object_id = var.databricks_app_object_id
   hub_private_link_info    = module.hub.private_link_info
   tenant_id                = module.hub.tenant_id
 

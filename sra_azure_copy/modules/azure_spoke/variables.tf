@@ -33,19 +33,9 @@ variable "vnet_cidr" {
   }
 }
 
-variable "key_vault_id" {
-  type        = string
-  description = "(Required) ID of the Azure Key Vault containing the keys for CMK"
-
-}
 variable "route_table_id" {
   type        = string
   description = "(Required) The ID of the route table to associate with the Databricks subnets"
-}
-
-variable "metastore_id" {
-  type        = string
-  description = "(Required) The ID of the metastore to associate with the Databricks workspace"
 }
 
 variable "ipgroup_id" {
@@ -68,16 +58,6 @@ variable "hub_vnet_id" {
   description = "(Required) The ID of the hub VNet to peer"
 }
 
-variable "managed_disk_key_id" {
-  type    = string
-  default = "(Required) The key for managed disk encryption"
-}
-
-variable "managed_services_key_id" {
-  type    = string
-  default = "(Required) The key for the managed services encryption"
-}
-
 variable "prefix" {
   type        = string
   description = "(Required) Naming prefix for resources"
@@ -87,11 +67,6 @@ variable "tags" {
   type        = map(string)
   description = "(Optional) Map of tags to attach to resources"
   default     = {}
-}
-
-variable "databricks_app_object_id" {
-  type        = string
-  description = "(Required) The object ID of the AzureDatabricks App Registration"
 }
 
 variable "hub_private_link_info" {
