@@ -73,8 +73,8 @@ resource "azurerm_databricks_workspace" "webauth" {
   resource_group_name                   = azurerm_resource_group.this.name
   location                              = azurerm_resource_group.this.location
   sku                                   = "premium"
-  public_network_access_enabled         = false
-  network_security_group_rules_required = "NoAzureDatabricksRules"
+  public_network_access_enabled         = true
+  network_security_group_rules_required = "AllRules"
 
   # This custom_parameters block specifies additional parameters for the databricks workspace
   custom_parameters {
@@ -85,6 +85,11 @@ resource "azurerm_databricks_workspace" "webauth" {
     private_subnet_network_security_group_association_id = azurerm_subnet_network_security_group_association.container.id
     public_subnet_network_security_group_association_id  = azurerm_subnet_network_security_group_association.host.id
   }
+  # We need this, otherwise destroy doesn't cleanup things correctly
+  depends_on = [
+    azurerm_subnet_network_security_group_association.container,
+    azurerm_subnet_network_security_group_association.host
+  ]
 
   tags = var.tags
 
@@ -94,34 +99,34 @@ resource "azurerm_databricks_workspace" "webauth" {
 }
 
 # This resource block defines a private DNS zone Databricks
-resource "azurerm_private_dns_zone" "auth_front" {
-  name                = "privatelink.azuredatabricks.net"
-  resource_group_name = azurerm_resource_group.this.name
-}
+# resource "azurerm_private_dns_zone" "auth_front" {
+#   name                = "privatelink.azuredatabricks.net"
+#   resource_group_name = azurerm_resource_group.this.name
+# }
 
 # This resource block defines a private endpoint for webauth
-resource "azurerm_private_endpoint" "webauth" {
-  name                = "webauth-private-endpoint"
-  location            = azurerm_resource_group.this.location
-  resource_group_name = azurerm_resource_group.this.name
-  subnet_id           = azurerm_subnet.privatelink.id
+# resource "azurerm_private_endpoint" "webauth" {
+#   name                = "webauth-private-endpoint"
+#   location            = azurerm_resource_group.this.location
+#   resource_group_name = azurerm_resource_group.this.name
+#   subnet_id           = azurerm_subnet.privatelink.id
 
-  depends_on = [azurerm_subnet.privatelink] # for proper destruction order
+#   depends_on = [azurerm_subnet.privatelink] # for proper destruction order
 
-  # This private_service_connection block specifies the connection details for the private endpoint
-  private_service_connection {
-    name                           = "pl-webauth"
-    private_connection_resource_id = azurerm_databricks_workspace.webauth.id
-    is_manual_connection           = false
-    subresource_names              = ["browser_authentication"]
-  }
+#   # This private_service_connection block specifies the connection details for the private endpoint
+#   private_service_connection {
+#     name                           = "pl-webauth"
+#     private_connection_resource_id = azurerm_databricks_workspace.webauth.id
+#     is_manual_connection           = false
+#     subresource_names              = ["browser_authentication"]
+#   }
 
-  # This private_dns_zone_group block specifies the private DNS zone to associate with the private endpoint
-  private_dns_zone_group {
-    name                 = "private-dns-zone-webauth"
-    private_dns_zone_ids = [azurerm_private_dns_zone.auth_front.id]
-  }
-}
+#   # This private_dns_zone_group block specifies the private DNS zone to associate with the private endpoint
+#   private_dns_zone_group {
+#     name                 = "private-dns-zone-webauth"
+#     private_dns_zone_ids = [azurerm_private_dns_zone.auth_front.id]
+#   }
+# }
 
 # resource "databricks_metastore_assignment" "webauth" {
 #   workspace_id = azurerm_databricks_workspace.webauth.workspace_id
