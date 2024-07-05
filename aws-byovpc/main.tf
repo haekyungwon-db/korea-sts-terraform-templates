@@ -11,8 +11,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-northeast-2"
-  profile = "[target aws profile]"
+  region = var.region
 }
 
 // initialize provider in "MWS" mode to provision new workspace
