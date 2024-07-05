@@ -40,7 +40,6 @@ resource "random_string" "naming" {
 }
 
 locals {
-  root_bucket_name = "[root bucket name]"
   prefix = "[prefix value]"
   tags = {
     Owner = "${var.user_name}"
