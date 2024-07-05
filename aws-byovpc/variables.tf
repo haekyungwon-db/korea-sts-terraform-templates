@@ -10,7 +10,7 @@ variable "user_name" {
 
 variable "region" { 
   type = string
-  default = "ap-northeast-1"
+  default = "ap-northeast-2"
 }
 
 variable "client_id" {
@@ -40,7 +40,6 @@ resource "random_string" "naming" {
 }
 
 locals {
-  root_bucket_name = "[root bucket name]"
   prefix = "[prefix value]"
   tags = {
     Owner = "${var.user_name}"
