@@ -30,7 +30,7 @@ variable "tags" {
 }
 
 variable "cidr_block" {
-  default = "10.4.0.0/16"
+  default = "10.4.0.0/19"
 }
 
 variable "vpce_subnet_cidr" {
