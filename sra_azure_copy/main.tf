@@ -60,7 +60,7 @@ module "spoke" {
   # Pass the required variables to the module
   prefix    = each.value.prefix
   vnet_cidr = each.value.cidr
-  tags      = each.value.tags
+  tags      = var.tags
 
   location                 = var.location
   route_table_id           = module.hub.route_table_id
