@@ -28,7 +28,7 @@ output "resource_group_name" {
 
 output "private_link_info" {
   value = {
-    dns_zone_id = azurerm_private_dns_zone.auth_front.id
+    dns_zone_id = azurerm_private_dns_zone.front.id
     subnet_id   = azurerm_subnet.privatelink.id
   }
 }
